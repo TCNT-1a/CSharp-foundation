@@ -1,11 +1,135 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System.ComponentModel;
+using System.Net.WebSockets;
+using TestProject;
+int a = Convert.ToInt32("1");
+test();
+for (int i = 1; i < 5; i++)
+{
+    Console.WriteLine(i);
+}
+var value = 2;
+value.ToString("0.0#");
+Math.Pow(5, 2);
 
-Console.WriteLine("Hello, World!");
+string[] names = { "Alice", "Bob", "Charlie" };
+names.Contains("Alice");
+Array.Sort(names);
 
-labExamString();
+void test()
+{
+    int dayOfWeek = 3;
+    string dayName;
 
+    switch (dayOfWeek)
+    {
+        case 1:
+            dayName = "Monday";
+            break;
+        case 2:
+            dayName = "Tuesday";
+            break;
+        default:
+            dayName = "Unknown";
+            break;
+    }
 
+    Console.WriteLine(dayName);
+}
+void labGetTag()
+{
+    const string input = "<div><h2>Widgets &trade;</h2><span>5000</span></div>";
+    var output = getTag("div", input);
+    var quantity = getTag("span", getTag("div", input));
+    Console.WriteLine($"Quantity:{quantity}");
+    Console.WriteLine($"Output:{output}");
+}
+string getTag(string tagName,string data)
+{
+    string OpenningTag = $"<{tagName}>";
+    string ClosingTag = $"</{tagName}>";
+    var posOpening = data.IndexOf(OpenningTag) + OpenningTag.Length;
+    var posClosing = data.IndexOf(ClosingTag);
+    var len = posClosing - posOpening;
+    return data.Substring(posOpening, len);
+}
+void RemoveReplace()
+{
+    string data = "12345John Smith          5000  3  ";
+    string updateData = data.Remove(5, 20);
+    Console.WriteLine(data);
+    Console.WriteLine(updateData);
+
+    string message = "This--is--ex-amp-le--da-ta";
+    message = message.Replace("--", " ");
+    message = message.Replace("-", "");
+    Console.WriteLine(message);
+}
+
+void IndexOfAny()
+{
+    string message = "Help (find) the {opening symbols}";
+    char[] openSymbols = { '[', '{', '(' };
+    var p = message.IndexOfAny(openSymbols); 
+    Console.WriteLine(p);
+    
+}
+
+void multiParenttheses2()
+{
+    string message = "(What if) there are (more than) one (set of parentheses)?";
+    while (true)
+    {
+        int openingPosition = message.IndexOf('(');
+        if (openingPosition == -1) break;
+
+        openingPosition += 1;
+        int closingPosition = message.IndexOf(')');
+        int length = closingPosition - openingPosition;
+        Console.WriteLine(message.Substring(openingPosition, length));
+
+        // Note the overload of the Substring to return only the remaining 
+        // unprocessed message:
+        message = message.Substring(closingPosition+1);
+    }
+}
+void multiParenttheses()
+{
+    string message = "(What if) there are (more than) one (set of parentheses)?";
+
+    while (true)
+    {
+        var positionOpen = message.LastIndexOf("(");
+        var positionClose = message.LastIndexOf(")");
+        if (positionOpen == -1) break;
+        positionOpen++;
+        var len = positionClose - positionOpen;
+        Console.WriteLine(message.Substring(positionOpen, len));
+        message = message.Substring(0, positionOpen-1);
+    } 
+}
+void labStringLast()
+{
+    string message = "(What if) I am (only interested) in the last (set of parentheses)?";
+    var begin = message.LastIndexOf('(');
+    var close = message.LastIndexOf(')');
+    begin+=1;
+    var len = close - begin;
+    var result = message.Substring(begin, len);
+    Console.WriteLine(result);
+}
+void labIndexString()
+{
+    string message = "Find what is (inside the parentheses)";
+
+    int openingPosition = message.IndexOf('(');
+    int closingPosition = message.IndexOf(')');
+    openingPosition+=1;
+    
+    int lenght = closingPosition - openingPosition;
+
+    Console.WriteLine(message.Substring(openingPosition, lenght));
+}
 void labExamString()
 {
     string customerName = "Ms. Barros";
